@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS reports (
+    title VARCHAR(100) NOT NULL,
+    info VARCHAR(1500) NOT NULL,
+    UNIQUE(title)
+);
