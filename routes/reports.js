@@ -3,6 +3,10 @@ const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/reports.sqlite');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const jwtSecret = process.env.JWT_SECRET;
 
 router.post("/",

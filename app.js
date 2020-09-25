@@ -20,7 +20,7 @@ const login = require('./routes/login');
 const register = require('./routes/register');
 const reports = require('./routes/reports');
 
-const port = 1337;
+const port = 8333;
 
 app.use('/', index);
 app.use('/reports', reports);

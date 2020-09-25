@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/text.sqlite');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const jwtSecret = process.env.JWT_SECRET;
 
 router.post('/', (req, res) => login(res, req.body));
@@ -66,7 +70,7 @@ function login(res, body) {
                     let payload = { email: user.email };
                     let jwtToken = jwt.sign(payload, jwtSecret, { expiresIn: '24h' });
 
-                    return res.json({
+                    return res.status(201).json({
                         data: {
                             type: "success",
                             message: "User logged in",
