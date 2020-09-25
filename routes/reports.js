@@ -23,6 +23,8 @@ router.get('/week/1', (req, res) => getWeek1(res, req.body));
 
 router.get('/week/2', (req, res) => getWeek2(res, req.body));
 
+router.get('/week/3', (req, res) => getWeek3(res, req.body));
+
 function checkToken(req, res, next) {
     var token = req.headers['x-access-token'];
 
@@ -180,6 +182,24 @@ function getWeek2(res, body) {
             });
         }
         res.json( { data: rows[1] } );
+    })
+}
+
+function getWeek3(res, body) {
+    var sql = "select * from reports";
+
+    db.all(sql, (err, rows) => {
+        if (err) {
+            return res.status(500).json({
+                errors: {
+                    status: 500,
+                    source: "/reports/edit",
+                    title: "Database error",
+                    detail: err.message
+                }
+            });
+        }
+        res.json( { data: rows[2] } );
     })
 }
 
