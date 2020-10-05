@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/text.sqlite');
+const db = require("../db/databaseUsers.js");
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
@@ -26,7 +25,6 @@ function login(res, body) {
             }
         });
     }
-
     db.get("SELECT * FROM users WHERE email = ?",
         email,
         (err, rows) => {
@@ -40,7 +38,6 @@ function login(res, body) {
                     }
                 });
             }
-
             if (rows === undefined) {
                 return res.status(401).json({
                     errors: {
@@ -51,7 +48,6 @@ function login(res, body) {
                     }
                 });
             }
-
             const user = rows;
 
             bcrypt.compare(password, user.password, (err, result) => {
@@ -65,7 +61,6 @@ function login(res, body) {
                         }
                     });
                 }
-
                 if (result) {
                     let payload = { email: user.email };
                     let jwtToken = jwt.sign(payload, jwtSecret, { expiresIn: '24h' });
@@ -79,7 +74,6 @@ function login(res, body) {
                         }
                     });
                 }
-
                 return res.status(401).json({
                     errors: {
                         status: 401,
@@ -90,7 +84,6 @@ function login(res, body) {
                 });
             });
         });
-
 }
 
 module.exports = router;

@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/text.sqlite');
+const db = require("../db/databaseUsers.js");
 
 router.post('/', (req, res) => register(res, req.body));
 

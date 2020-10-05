@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/reports.sqlite');
+const db = require("../db/databaseReports.js");
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
@@ -29,7 +28,7 @@ function checkToken(req, res, next) {
     var token = req.headers['x-access-token'];
 
     if (token) {
-        jwt.verify(token, jwtSecret, function(err, decoded) {
+        jwt.verify(token, jwtSecret, function(err) {
             if (err) {
                 return res.status(500).json({
                     errors: {
@@ -134,22 +133,22 @@ function editReports(res, body) {
     );
 }
 
-function getReports(res, req) {
+function getReports(res) {
     var sql = "select * from reports";
 
     db.all(sql, (err, rows) => {
         if (err) {
-            res.status(400).json({"error":err.message});
+            res.status(400).json({ "error": err.message });
             return;
         }
-        res.json({
-            "message":"success",
-            "data":rows
-        })
-    })
+        res.status(200).json({
+            "message": "success",
+            "data": rows
+        });
+    });
 }
 
-function getWeek1(res, body) {
+function getWeek1(res) {
     var sql = "select * from reports";
 
     db.all(sql, (err, rows) => {
@@ -164,10 +163,10 @@ function getWeek1(res, body) {
             });
         }
         res.json( { data: rows[0] } );
-    })
+    });
 }
 
-function getWeek2(res, body) {
+function getWeek2(res) {
     var sql = "select * from reports";
 
     db.all(sql, (err, rows) => {
@@ -182,10 +181,10 @@ function getWeek2(res, body) {
             });
         }
         res.json( { data: rows[1] } );
-    })
+    });
 }
 
-function getWeek3(res, body) {
+function getWeek3(res) {
     var sql = "select * from reports";
 
     db.all(sql, (err, rows) => {
@@ -200,7 +199,7 @@ function getWeek3(res, body) {
             });
         }
         res.json( { data: rows[2] } );
-    })
+    });
 }
 
 module.exports = router;

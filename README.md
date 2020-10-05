@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Skwoat/jsramverk-api.svg?branch=master)](https://travis-ci.org/github/Skwoat/jsramverk-api)
+[![Build Status](https://scrutinizer-ci.com/g/Skwoat/jsramverk-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Skwoat/jsramverk-api/?branch=master)
+
 To install run these commands:
 
 [npm init]
