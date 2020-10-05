@@ -7,7 +7,11 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const jwtSecret = process.env.JWT_SECRET;
+var jwtSecret = process.env.JWT_SECRET;
+
+if (process.env.NODE_ENV == 'test') {
+    jwtSecret = "testsecret";
+}
 
 router.post('/', (req, res) => login(res, req.body));
 
